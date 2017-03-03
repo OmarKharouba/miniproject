@@ -1,0 +1,72 @@
+<%include _header%>
+
+
+<form action="/addwork" method="post" enctype="multipart/form-data" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+<h2 class="w3-center">Contact Us</h2>
+ 
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"><i class="w3-xxlarge material-icons">&#xe264;</i></div>
+    <div class="w3-rest">
+      <input class="w3-input w3-border" name="title" type="text" placeholder="Title" required>
+    </div>
+</div>
+
+  <p>
+  <input class="w3-radio" type="radio" name="kk" onclick="javascript:image_or_link()" id="image">
+  <label class="w3-validate">Screenshot</label></p>
+
+  <p>
+  <input class="w3-radio" type="radio" name="kk" onclick="javascript:image_or_link()" checked>
+  <label class="w3-validate">Link</label></p>
+
+<div class="w3-row w3-section" id="linkdiv">
+  <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-link"></i></div>
+    <div class="w3-rest">
+      <input id="url" class="w3-input w3-border" name="url" type="text" placeholder="Link" required>
+    </div>
+</div>
+
+<div class="w3-row w3-section" id="imagediv" style="display: none">
+  <div class="w3-col" style="width:50px"><i class="w3-xxlarge fa fa-image"></i></div>
+    <div class="w3-rest">
+      <input id="loadimage" class="w3-input w3-border" name="image" type="file">
+    </div>
+</div>
+
+<div class="w3-row w3-section">
+  <div class="w3-col" style="width:50px"><i class="w3-xxlarge material-icons">&#xe873;</i></div>
+    <div class="w3-rest">
+      <input class="w3-input w3-border" name="description" type="text" placeholder="Description">
+    </div>
+</div>
+
+<button class="w3-btn-block w3-section w3-blue w3-ripple w3-padding">Send</button>
+
+</form>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+function image_or_link(){
+    if(document.getElementById('image').checked){
+        document.getElementById('imagediv').style.display='block';
+        document.getElementById('linkdiv').style.display='none';
+        document.getElementById('loadimage').required=true;
+        document.getElementById('url').required=false;
+        
+    }else{
+    	document.getElementById('imagediv').style.display='none';
+        document.getElementById('linkdiv').style.display='block';
+        document.getElementById('url').required=true;
+        document.getElementById('loadimage').required=false;
+    }
+}
+</script>
+
+
+<%include _footer%>

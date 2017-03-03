@@ -1,0 +1,93 @@
+<% include _header %>
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          <img src="data:image/png;base64,<%= (user.profilepic.data.toString('base64')) %>" style="width:100%" alt="Profile pic">
+        </div>
+        <div class="w3-container">
+        	<h2 style="color: black"><%=user.username%></h2>
+          <p><%=user.bio%></p>
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Student</p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Cairo,Egypt</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=user.email%></p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=user.phonenumber%></p>
+          <hr>
+          <%if(currentUser && user.username==currentUser.username){%>
+    		<a href="/editportfolio/<%=user.username%>" style="text-decoration:none"><button class="w3-button w3-margin-bottom w3-teal w3-hover-deep-orange">Edit Portfolio</button></a>
+    		<a href="/addwork" style="text-decoration:none"><button class="w3-button w3-margin-bottom w3-teal w3-hover-deep-orange">Add New Work</button></a>
+		<% } %>
+
+          <br>
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+
+
+    <%var c1=0; var c2=0;%>
+	<%for(var i=0;i<user.projects.length;i++){%>
+	<%if(user.projects[i].image.data){c2++;}else{c1++}}%>
+
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    <%if(c1!=0 || c2!=0){%>
+    <%if(c1>0){%>
+      <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Projects</h2>
+        <%for(var i=0;i<user.projects.length;i++){ if(!user.projects[i].image.data){ %>
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b><%= (user.projects)[i].title%></b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-link fa-fw w3-margin-right"></i><a href="<%= (user.projects)[i].url%>"><%= (user.projects)[i].url%></a></h6>
+          <p><%= (user.projects)[i].description%></p>
+          <hr>
+        </div>
+        <%}}%>
+      </div>
+      <%}%>
+      <%if(c2>0){%>
+      <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-image fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Screenshots</h2>
+        <%for(var i=0;i<user.projects.length;i++){ if(user.projects[i].image.data){ %>
+        <div class="w3-row-padding w3-padding-16 w3-center">
+
+		<div class="w3-card-12 w3-half">
+			<img src="data:image/png;base64,<%= (user.projects[i].image.data.toString('base64')) %>" alt="screensho" style="width:100%">
+     	</div>
+     	<div class="w3-half">
+     		<h5 class="w3-opacity"><b><%= (user.projects)[i].title%></b></h5>
+          	<p><%= (user.projects)[i].description%></p>
+     	</div>
+    </div>
+        <hr>
+        <%}}%>
+      </div>
+      <%}%>
+      <%}else{%>
+      <%if(currentUser && user.username==currentUser.username){%>
+      			<div class="w3-panel w3-blue w3-round-xlarge" role="alert">
+                    <span class="w3-closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                    <p><h2>You don't have a portfolio yet, Create one by adding your first work.</h2></p>
+                </div>
+    		<a href="/addwork" style="text-decoration:none"><button class="w3-button w3-margin-bottom w3-teal w3-hover-deep-orange">Add New Work</button></a>
+		<% } %>
+        <%}%>
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+  <!-- End Page Container -->
+</div>
+<% include _footer %>
